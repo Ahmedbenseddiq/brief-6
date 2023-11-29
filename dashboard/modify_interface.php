@@ -1,67 +1,43 @@
 <?php
 include_once '../includes/config.php';
+if(isset($_GET['reference'])) {
+    $reference = $_GET['reference'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $reference = $_POST['reference'];
-    $label = $_POST['label'];
-    $description = $_POST['description'];
-    $barcode = $_POST['barcode'];
-    $minQuantity = $_POST['minQuantity'];
-    $stockQuantity = $_POST['stockQuantity'];
-    $purchasePrice = $_POST['purchasePrice'];
-    $finalPrice = $_POST['finalPrice'];
-    $offerPrice = $_POST['offerPrice'];
-
-    // File upload handling
-    $targetDir = "../product-img";
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($_FILES["uploaded_file"]["name"], PATHINFO_EXTENSION));
-     
-
-    $targetFile = $targetDir . '.' . $imageFileType;
-
-    // Check if file is an actual image
-    $check = getimagesize($_FILES["uploaded_file"]["tmp_name"]);
-    if ($check === false) {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-
-    // Check file size if needed
-    if ($_FILES["uploaded_file"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-
-    // Allow certain file formats if needed
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    } else {
-        if (move_uploaded_file($_FILES["uploaded_file"]["tmp_name"], $targetFile)) {
-            // File uploaded successfully, proceed with database insertion
-            $sql = "INSERT INTO products (reference, label, description, barcode, quantity_min, quantity_stock, purchase_price, selling_price, offer_price, image) 
-            VALUES ('$reference', '$label', '$description', '$barcode', '$minQuantity', '$stockQuantity', '$purchasePrice', '$finalPrice', '$offerPrice', '$targetFile')";
-            $result = mysqli_query($conn, $sql);
-
-            if ($result) {
-                // Category inserted successfully
-                echo "Product added successfully.";
-                // Redirect or perform other actions upon successful insertion
-            } else {
-                echo "Failed to add product: " . mysqli_error($conn);
-            }
+    if(isset($_POST['modify_product'])) {
+        // Get the form data
+        $reference = $_POST['reference'];
+        $label = $_POST['label'];
+        $description = $_POST['description'];
+        $barcode = $_POST['barcode'];
+        $minQuantity = $_POST['minQuantity'];
+        $stockQuantity = $_POST['stockQuantity'];
+        $purchasePrice = $_POST['purchasePrice'];
+        $finalPrice = $_POST['finalPrice'];
+        $offerPrice = $_POST['offerPrice'];
+    
+        // File handling if needed
+        $targetFile = ''; // You need to define this based on your file upload logic
+        
+        // Update the product details in the database
+        $sql = "UPDATE products 
+                SET label = '$label', description = '$description', barcode = '$barcode', 
+                    quantity_min = '$minQuantity', quantity_stock = '$stockQuantity', 
+                    purchase_price = '$purchasePrice', selling_price = '$finalPrice', 
+                    offer_price = '$offerPrice', image = '$targetFile'
+                WHERE reference = '$reference'";
+        
+        if (mysqli_query($conn, $sql)) {
+            echo "Product updated successfully";
+            // Redirect to product.php or any other page after modification
+            header("Location: product.php");
+            exit();
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Error updating product: " . mysqli_error($conn);
         }
     }
+    
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -93,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="product.php" class="list-group-item list-group-item-action py-2 ripple"
                 ><i class="fas fa-chart-line fa-fw me-3"></i><span>Product Management</span></a
                 >
-                <a href="managment.php" class="list-group-item list-group-item-action py-2 ripple"
+                <a href="#" class="list-group-item list-group-item-action py-2 ripple"
                 ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Users Management</span></a
                 >
                 <a href="../user.php" class="list-group-item list-group-item-action py-2 ripple"
@@ -144,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
           <div class="container pt-4 ms-5">
          <div class="d-flex justify-content-center" m-5 style="width: 45rem; ">
-         <h3>Add Product</h3>
+         <h3>Modify Product</h3>
          </div>
           
 
@@ -190,63 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="image" class="form-label">Import file</label>
                 <input class="form-control" type="file" id="image" name="uploaded_file">
             </div>
-            <button type="submit" class="btn btn-primary btn-block col-md-2 mb-4" name="add_product">Add</button>
+            <button type="submit" class="btn btn-success btn-block col-md-2 mb-4" name="modify_product">modify</button>
         </form>
     </div>
 
 
-            
-         
-
-              <table class="table" style="width: 65rem; margin-top: 75px">
-                  <thead>
-                      <div class="d-flex justify-content-center" style="width: 45rem; margin-top: 65px;">
-                          <h3>Product list</h3>
-                      </div>
-                      <tr>
-                          <th scope="col">Reference</th>
-                          <th scope="col">Label</th>
-                          <th scope="col">price</th>
-                          <th scope="col">stock quantity</th>
-                          <th scope="col">image</th>
-                          <th scope="col">managment</th>
-                          
-                          
-
-                          
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <?php
-                      // Assume $conn is your database connection
-                      // Perform SQL query to fetch data from the "products" table
-                      $sql = "SELECT * FROM products";
-                      $result = mysqli_query($conn, $sql);
-
-                      if (mysqli_num_rows($result) > 0) {
-                          
-                          while ($row = mysqli_fetch_assoc($result)) {
-                              echo "<tr>";
-                              echo "<td>" . $row["reference"] . "</td>";
-                              echo "<td>" . $row["label"] . "</td>";
-                              echo "<td>" . $row["selling_price"] . "</td>";
-                              echo "<td>" . $row["quantity_stock"] . "</td>";
-                              echo "<td>" . $row["image"] . "</td>";
-                              echo "<td><form method='post' action='delete_product.php'>
-                                        <input type='hidden' name='reference' value='" . $row['reference'] . "'>
-                                        <button type='submit' name='delete' class='btn btn-danger'>Delete</button>
-                                      </form>
-                                      <a href='modify_interface.php?reference=" . $row['reference'] . "' class='btn btn-success mt-2'>modify</a>
-                                      </td>";
-                                      
-                              echo "</tr>";
-                          }
-                      } else {
-                          echo "<tr><td colspan='2'>No products found</td></tr>";
-                      }
-                      ?>
-                  </tbody>
-              </table>
+        
 
 
           </div>
@@ -255,14 +180,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
     
-    
-
-    
-    <!-- <footer>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-        © 2023 Copyright:
-        <a class="text-body" href="#">YouCode</a>
-    </div>
-    </footer> -->
 </body>
 </html>

@@ -1,10 +1,14 @@
+<?php
+include_once 'includes/config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
     <title>Document</title>
 </head>
 <body>
@@ -46,28 +50,39 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="" method="post">
-                <div class="mb-3">
-                  <label for="fullName" class="form-label">Full name</label>
-                  <input type="text" class="form-control"  name="fullName" aria-describedby="emailHelp" require>
-                  
-                  <label for="email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
-                  
-                  <label for="login" class="form-label">Login</label>
-                  <input type="text" class="form-control" name="login" aria-describedby="emailHelp">
-                  
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" name="password">
-                  
-                  <label for="confirmPassword" class="form-label">Confirm password</label>
-                  <input type="password" class="form-control" name="confirmPassword">
-                </div> 
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" name="submit">Submit</button>
-                </div>
-              </form>
+              
+            
+            
+
+
+
+    <form action="signup.php" method="post">
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Full name</label>
+            <input type="text" class="form-control" name="fullName" id="fullName" aria-describedby="emailHelp" required>
+
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
+
+            <label for="login" class="form-label">Login</label>
+            <input type="text" class="form-control" name="login" id="email" aria-describedby="emailHelp">
+
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password">
+
+            <label for="confirmPassword" class="form-label">Confirm password</label>
+            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="submit">Sign in</button>
+        </div>
+    </form>
+
+
+
+
             </div>
           </div>
         </div>
@@ -82,19 +97,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
             <div class="modal-body">
-              <form action="" method="post">
+
+
+              <form action="login.php" method="post">  
                 <div class="mb-3">
-                  <label for="login" class="form-label">Login</label>
-                  <input type="text" class="form-control" name="lgn" aria-describedby="emailHelp">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" name="login" id="login" aria-describedby="emailHelp">
                     
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" name="pswrd">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password">
                 </div> 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary" name="sbmt">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Log in</button>
                 </div>
               </form>
+
+
             </div>
           </div>
         </div>
@@ -153,5 +172,6 @@
   </div>
   <!-- Copyright -->
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
