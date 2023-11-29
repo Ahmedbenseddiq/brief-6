@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
           <div class="container pt-4 ms-5">
          <div class="d-flex justify-content-center"  style="width: 45rem; ">
-         <h3>Add Category</h3>
+         <h3>modify Category</h3>
          </div>
 
         <form style="width: 45rem;" method="post" action="category.php" enctype="multipart/form-data">
@@ -155,91 +155,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4" name="submit">Add Category</button>
+            <button type="submit" class="btn btn-success btn-block mb-4" name="submit">Modify</button>
         </form>
 
 
                 
-              <?php
-              // Assuming you have established a database connection ($conn)
-
-              // Fetch data from the database
-              $query = "SELECT * FROM categories";
-              $result = mysqli_query($conn, $query);
-
-              if (mysqli_num_rows($result) > 0) {
-                  echo '<table class="table" style="width: 65rem;margin-top:35px">
-                      <thead>
-                          <div class="d-flex justify-content-center"  style="width: 45rem;margin-top:65px; ">
-                              <h3>Category list</h3>
-                          </div>
-                          <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Category Name</th>
-                              <th scope="col">Description</th>
-                              <th scope="col">Image</th>
-                              <th scope="col">managment</th>
-                          </tr>
-                      </thead>
-                      <tbody>';
-
-                  $count = 1;
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    //   echo '<tr>
-                    //       <th scope="row">' . $count . '</th>
-                    //       <td>' . $row['name'] . '</td>
-                    //       <td>' . $row['description'] . '</td>
-                    //       <td><img src="' . $row['photo'] . '" alt="Category Image" style="max-width: 100px; max-height: 100px;"></td>
-                    //         <td>
-                    //             <form method="post" action="delete_category.php"> <!-- Form for delete button -->
-                    //                 <input type="hidden" name="category_id" value="' . $row['category_id'] . '"> <!-- Hidden input for category ID -->
-                    //                 <button type="submit" name="delete_category" class="btn btn-danger">Delete</button>
-
-                    //             </form>
-                    //             <a href='modify_interface.php?reference=" . $row['reference'] . "' class='btn btn-success mt-2'>modify</a>
-                    //         </td>
-                    //   </tr>';
-                      echo '<tr>
-                                <th scope="row">' . $count . '</th>
-                                <td>' . $row['name'] . '</td>
-                                <td>' . $row['description'] . '</td>
-                                <td><img src="' . $row['photo'] . '" alt="Category Image" style="max-width: 100px; max-height: 100px;"></td>
-                                <td>
-                                    <form method="post" action="delete_category.php"> <!-- Form for delete button -->
-                                        <input type="hidden" name="category_id" value="' . $row['category_id'] . '"> <!-- Hidden input for category ID -->
-                                        <button type="submit" name="delete_category" class="btn btn-danger">Delete</button>
-                                    </form>
-                                    <a href="modify_interface2.php?category_id=' . $row['category_id'] . '" class="btn btn-success mt-2">Modify</a>
-                                </td>
-                            </tr>';
-
-                      $count++;
-                  }
-
-                  echo '</tbody></table>';
-              } else {
-                  echo "No categories found.";
-              }
-
               
-              ?>
-               
-
-          </div>
-      </main>
-        </div>
-      </div>
     </div>
     
-    
-
-    
-    <!-- <footer>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-        © 2023 Copyright:
-        <a class="text-body" href="#">YouCode</a>
-    </div>
-    </footer> -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

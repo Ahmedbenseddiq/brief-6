@@ -84,7 +84,7 @@
             
             <div class="card mb-2" style="width: 18rem;">
                 <div class="card-body">
-                    <h5>User demandes</h5>
+                    <h5>Admins</h5>
                     <h6 class="card-title">User name</h5>
                     <button type="button" class="btn btn-success">Success</button>
                     <button type="button" class="btn btn-danger">Danger</button>
@@ -94,7 +94,7 @@
           <div class="row">   
             <div class="card mb-2" style="width: 18rem;">
                 <div class="card-body">
-                    <h5>User demandes</h5>
+                    <h5>User list</h5>
                     <h6 class="card-title">User name</h6>
                     <button type="button" class="btn btn-success">Success</button>
                     <button type="button" class="btn btn-danger">Danger</button>
